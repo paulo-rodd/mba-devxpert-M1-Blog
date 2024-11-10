@@ -26,7 +26,7 @@ O projeto consiste em:
   - ASP.NET Core MVC
   - ASP.NET Core Web API
   - Entity Framework Core
-- **Banco de Dados:** SQL Server
+- **Banco de Dados:** SQL Server ou SQLite (Desenvolvimento)
 - **Autenticação e Autorização:**
   - ASP.NET Core Identity
   - JWT (JSON Web Token) para autenticação na API
@@ -41,9 +41,11 @@ A estrutura do projeto é organizada da seguinte forma:
 
 
 - src/
-  - Blog.Web/ - Projeto MVC
+  - Blog.Mvc/ - Projeto MVC
   - Blog.Api/ - API RESTful
-  - Blog.Data/ - Modelos de Dados e Configuração do EF Core
+  - Blog.Domain/ - Modelos de Dados
+  - Blog.Application/ - Regras de Negócio
+  - Blog.Infra/ - EF
 - README.md - Arquivo de Documentação do Projeto
 - FEEDBACK.md - Arquivo para Consolidação dos Feedbacks
 - .gitignore - Arquivo de Ignoração do Git
@@ -67,11 +69,12 @@ A estrutura do projeto é organizada da seguinte forma:
 ### **Passos para Execução**
 
 1. **Clone o Repositório:**
-   - `git clone https://github.com/seu-usuario/nome-do-repositorio.git`
-   - `cd nome-do-repositorio`
+   - `git clone [https://github.com/paulo-rodd/mba-devxpert-M1-Blog.git]`
+   - `cd Blog`
 
 2. **Configuração do Banco de Dados:**
-   - No arquivo `appsettings.json`, configure a string de conexão do SQL Server.
+   - Produção: No arquivo `appsettings.json`, configure a string de conexão do SQL Server.
+   - Desenvolvimento: Não necessita configuração.
    - Rode o projeto para que a configuração do Seed crie o banco e popule com os dados básicos
 
 3. **Executar a Aplicação MVC:**
