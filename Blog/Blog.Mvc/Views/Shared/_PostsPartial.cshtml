@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Blog.Domain.Entities.Postagem>
+
+@{
+    ViewData["Title"] = "Postagens";
+}
+
+@foreach (var item in Model)
+{
+    <article class="col-lg-4 col-sm-12 mb-5a">
+        <div class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
+            <div class="card-body card-body-custom">
+                <ul class="list-inline mb-3">
+                    @{
+                        string _dataPublicacao = item.DataPublicacao.ToString("dd/MM/yyyy");
+                    }
+                    <li class="list-inline-item mr-3 ml-0">@Html.DisplayFor(modelItem => _dataPublicacao)</li>
+                    
+                    <li class="list-inline-item mr-3 ml-0">@Html.DisplayFor(modelItem => item.NomeAutor)</li>
+                </ul>
+                <a asp-controller="Postagens" asp-action="Details" asp-route-id="@item.Id">
+                    <h3 class="card-title card-title-custom">@Html.DisplayFor(modelItem => item.Titulo)</h3>
+                </a>
+                @{ string _resumo = item.Conteudo.Length > 100 ? item.Conteudo.Substring(0, 100) + "..." : item.Conteudo;}
+                <p class="card-text">@Html.DisplayFor(modelItem => _resumo)</p>
+                <div class="card-buttons">
+                    <a asp-controller="Postagens" asp-action="Details" asp-route-id="@item.Id" title="Ler mais"><i class="fa-solid fa-book-open-reader"></i></a>
+                    @{
+                        if (TempData["Autorizado"] != null && TempData["Autorizado"]!.ToString() == "true")
+                        {
+                            <span> | </span><a asp-action="Edit" asp-controller="Postagens" asp-route-id="@item.Id" title="Editar"><i class="fa-solid fa-pen-to-square"></i></a> <span> | </span>
+                            <a asp-action="Delete" asp-controller="Postagens" asp-route-id="@item.Id" title="Excluir"><i class="fa-solid fa-trash"></i></a>
+                        }
+                    }                    
+                </div>
+            </div>
+        </div>
+    </article>
+}

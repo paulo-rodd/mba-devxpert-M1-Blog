@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Blog.Domain.Entities.Comentario>
+
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    ViewData["Title"] = "Comentários";
+}
+
+<header class="fixed-top header">
+
+    <div class="top-header py-2 bg-white">
+        <div class="container">
+            <div class="row no-gutters">
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation w-100">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" alt="logo"></a>
+                <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
+                        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navigation">
+                    <ul class="navbar-nav ml-auto text-center">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item @@about">
+                            <a class="nav-link" asp-area="" asp-controller="Autores" asp-action="Index">Autores</a>
+                        </li>
+                        <li class="nav-item dropdown view active">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                BLOG
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Postagens" asp-action="Index">Postagens</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Comentarios" asp-action="Index">Comentários</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<section class="page-title-section overlay" data-background="/images/backgrounds/page-title.jpg">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8" style="z-index: 99; line-height:0;">
+                <span class="bem-vindo">@ViewData["Title"]</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["Mensagem"]
+    </div>
+}
+
+<div class="card-buttons">
+    <a asp-action="Index" asp-controller="Home" class="btn btn-primary"><i class="fa-solid fa-backward"></i> Home</a>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <partial name="_CommentsPartial" model="@Model" />
+        </div>
+    </div>
+</section>

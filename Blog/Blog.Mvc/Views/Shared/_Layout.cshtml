@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="author" content="Paulo Moreira">
+    <title>@ViewData["Title"] - Blog DevXpert</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/slick/slick.css" />
+    <link rel="stylesheet" href="~/lib/themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="~/lib/animate/animate.css" />
+    <link rel="stylesheet" href="~/lib/aos/aos.css" />
+    <link rel="stylesheet" href="~/lib/venobox/venobox.css" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="preloader">
+        <img src="~/images/preloader.gif" alt="preloader" />
+    </div>
+
+    <header class="fixed-top header">
+
+        <div class="top-header py-2 bg-white">
+            <div class="container">
+                <div class="row no-gutters">
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation w-100">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" alt="logo"></a>
+                    <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
+                            aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navigation">
+                        <ul class="navbar-nav ml-auto text-center">
+                            <li class="nav-item active">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item @@about">
+                                <a class="nav-link" asp-area="" asp-controller="Autores" asp-action="Index">Autores</a>
+                            </li>
+                            <li class="nav-item dropdown view">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    BLOG
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Postagens" asp-action="Index">Postagens</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Comentarios" asp-action="Index">Comentários</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <section class="page-title-section overlay" />
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-8" style="z-index: 99; line-height:0;">
+                    <span class="bem-vindo">Bem-vindo </span> <span class="nosso-blog"> ao nosso Blog!!</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+
+    <footer class="blog-custom-footer">
+        <div class="copyright py-4 bg-footer">
+            <div class="container">
+                <div class="row footer-row">
+                    <div class="col-sm-7 text-sm-left text-center">
+                        <p class="mb-0">
+                            &copy;
+                            <script>
+                                var CurrentYear = new Date().getFullYear()
+                                document.write(CurrentYear)
+                            </script>
+                            , desenhado & desenvolvido por <a href="https://pt.wikipedia.org/wiki/Volkswagen_Fusca" class="text-muted">Paulo Moreira</a>
+                        </p>
+                    </div>
+                    <div class="col-sm-5 text-sm-right text-center">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a class="d-inline-block p-2" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="fa-solid fa-shield-halved"></i> Privacidade</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/slick/slick.min.js"></script>
+    <script src="~/lib/aos/aos.js"></script>
+    <script src="~/lib/venobox/venobox.min.js"></script>
+    <script src="~/lib/filterizr/jquery.filterizr.min.js"></script>
+    <script src="~/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

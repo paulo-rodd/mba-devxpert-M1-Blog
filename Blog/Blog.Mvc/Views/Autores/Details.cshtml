@@ -1,0 +1,141 @@
+﻿@model Blog.Domain.Entities.Autor
+
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    ViewData["Title"] = "Detalhes do Autor";
+}
+
+<header class="fixed-top header">
+
+    <div class="top-header py-2 bg-white">
+        <div class="container">
+            <div class="row no-gutters">
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation w-100">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" alt="logo"></a>
+                <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
+                        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navigation">
+                    <ul class="navbar-nav ml-auto text-center">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item @@about">
+                            <a class="nav-link" asp-area="" asp-controller="Autores" asp-action="Index">Autores</a>
+                        </li>
+                        <li class="nav-item dropdown view active">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                BLOG
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Postagens" asp-action="Index">Postagens</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Comentarios" asp-action="Index">Comentários</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<section class="page-title-section overlay" data-background="/images/backgrounds/page-title.jpg">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8" style="z-index: 99; line-height:0;">
+                <span class="bem-vindo">@ViewData["Title"]</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<div class="container form-padd">
+
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Ativo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Ativo)
+            </dd>
+        </dl>
+    </div>
+    <div style="text-align: right; align-items: end; width: 100%; padding-right: 5px;">
+        
+        @{
+            if (TempData["Autorizado"]!.ToString() == "true")
+            {
+                <a asp-action="novo-autor" asp-controller="Autores" asp-route-id="@Model?.Id" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Autor</a>
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+            }
+        }
+        <a asp-action="Index" class="btn btn-primary"><i class="fa-solid fa-backward"></i> Autores</a>
+    </div>
+
+    <hr/>
+
+    <div class="padd-Titulo">
+        <h4>Postagens do Autor</h4>
+    </div>
+
+    @if (Model?.Postagens != null)
+    {
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    @foreach (var item in Model?.Postagens!)
+                    {
+                        <article class="col-lg-4 col-sm-12 mb-5">
+                            <div class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
+                                <div class="card-body">
+                                    <ul class="list-inline mb-3">
+                                        @{
+                                            string _dataPublicacao = item.DataPublicacao.ToString("dd/MM/yyyy HH:mm");
+                                        }
+                                        <li class="list-inline-item mr-3 ml-0">@Html.DisplayFor(modelItem => _dataPublicacao)</li>
+                                    </ul>
+                                    <a asp-controller="Postagens" asp-action="Details" asp-route-id="@item.Id">
+                                        <h4 class="card-title">@Html.DisplayFor(modelItem => item.Titulo)</h4>
+                                    </a>
+                                    <p class="card-text">@Html.DisplayFor(modelItem => item.Conteudo)</p>
+                                    <a class="btn btn-primary btn-sm" asp-controller="Postagens" asp-action="Details" asp-route-id="@item.Id"><i class="fa-solid fa-book-open-reader"></i> Ver tudo</a>
+                                </div>
+                            </div>
+                        </article>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+    else
+    {
+        <div>
+            Não existem comentários para esta postagem.
+        </div>
+    }
+</div>
+<div class="page-padd-finish" />

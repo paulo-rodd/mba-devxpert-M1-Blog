@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="author" content="Paulo Moreira">
+    <title>@ViewData["Title"] - Blog DevXpert</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/slick/slick.css" />
+    <link rel="stylesheet" href="~/lib/themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="~/lib/animate/animate.css" />
+    <link rel="stylesheet" href="~/lib/aos/aos.css" />
+    <link rel="stylesheet" href="~/lib/venobox/venobox.css" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="preloader">
+        <img src="~/images/preloader.gif" alt="preloader" />
+    </div>
+
+    
+    @RenderBody()
+
+
+
+    <footer class="blog-custom-footer">
+        <div class="copyright py-4 bg-footer">
+            <div class="container">
+                <div class="row footer-row">
+                    <div class="col-sm-7 text-sm-left text-center">
+                        <p class="mb-0">
+                            &copy;
+                            <script>
+                                var CurrentYear = new Date().getFullYear()
+                                document.write(CurrentYear)
+                            </script>
+                            , desenhado & desenvolvido por <a href="https://pt.wikipedia.org/wiki/Volkswagen_Fusca" class="text-muted">Paulo Moreira</a>
+                        </p>
+                    </div>
+                    <div class="col-sm-5 text-sm-right text-center">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a class="d-inline-block p-2" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="fa-solid fa-shield-halved"></i> Privacidade</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/slick/slick.min.js"></script>
+    <script src="~/lib/aos/aos.js"></script>
+    <script src="~/lib/venobox/venobox.min.js"></script>
+    <script src="~/lib/filterizr/jquery.filterizr.min.js"></script>
+    <script src="~/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

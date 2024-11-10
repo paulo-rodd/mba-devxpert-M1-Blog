@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Blog.Domain.Entities.Comentario>
+
+@{
+    ViewData["Title"] = "Comentários";
+}
+
+@foreach (var item in Model)
+{
+    <article class="col-lg-12 col-sm-12 mb-5">
+        <div class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
+            <div class="card-body">
+                <ul class="list-inline mb-3">
+                    @{
+                        string _dataPublicacao = item.DataComentario.ToString("dd/MM/yyyy");
+                    }
+                    <li class="list-inline-item mr-3 ml-0">@Html.DisplayFor(modelItem => _dataPublicacao)</li>
+
+                    <li class="list-inline-item mr-3 ml-0">@Html.DisplayFor(modelItem => item.NomeAutor)</li>
+                </ul>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Conteudo)</p>
+                <div style="text-align: right; align-items: end; width: 100%; padding-right: 5px;">
+                    @{
+                        var tempData = TempData.Peek("Autorizado");
+                        // if (TempData["Autorizado"] != null && TempData["Autorizado"]!.ToString() == "true")
+                        if (tempData != null && tempData!.ToString() == "true")
+                        {
+                            <a asp-controller="Comentarios" asp-action="Edit" asp-route-id="@item.Id" title="Editar"><i class="fa-solid fa-pen-to-square"></i></a> <span> | </span>
+                            <a asp-controller="Comentarios" asp-action="Delete" asp-route-id="@item.Id" title="Excluir"><i class="fa-solid fa-trash"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </article>
+}

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Blog.Domain.Entities.Autor>
+
+@{
+    ViewData["Title"] = "Comentários";
+}
+
+@foreach (var item in Model)
+{
+    <article class="col-lg-4 col-sm-12 mb-5">
+        <div class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
+            <div class="card-body">
+                <div class="row field-padd">
+                    <div class="col-lg-4 col-sm-12">
+                        <b>@Html.DisplayNameFor(modelItem => item.DataCadastro)</b>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        @{
+                            string _dataPublicacao = item.DataCadastro.ToString("dd/MM/yyyy");
+                        }
+                        @Html.DisplayFor(modelItem => _dataPublicacao)
+                    </div>
+                </div>
+                <div class="row field-padd">
+                    <div class="col-lg-4 col-sm-12">
+                        <b>@Html.DisplayNameFor(modelItem => item.Nome)</b>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </div>
+                </div>
+                <div class="row field-padd">
+                    <div class="col-lg-4 col-sm-12">
+                        <b>@Html.DisplayNameFor(modelItem => item.Ativo)</b>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        @Html.DisplayFor(modelItem => item.Ativo)
+                    </div>
+                </div>
+                <div style="text-align: right; align-items: end; width: 100%; padding-right: 5px;">
+                    @{
+                        if (TempData["Autorizado"] != null && TempData["Autorizado"]!.ToString() == "true")
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id" title="Editar"><i class="fa-solid fa-pen-to-square"></i></a> <span> | </span>
+                            <a asp-action="Delete" asp-route-id="@item.Id" title="Excluir"><i class="fa-solid fa-trash"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </article>
+}

@@ -1,0 +1,115 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Web;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model Blog.Domain.Entities.Autor
+
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    ViewData["Title"] = "Novo Autor";
+    var _userRole = User.IsInRole("Admin") ? "Admin" : "User";
+}
+
+<header class="fixed-top header">
+
+    <div class="top-header py-2 bg-white">
+        <div class="container">
+            <div class="row no-gutters">
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation w-100">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" alt="logo"></a>
+                <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
+                        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navigation">
+                    <ul class="navbar-nav ml-auto text-center">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item @@about">
+                            <a class="nav-link" asp-area="" asp-controller="Autores" asp-action="Index">Autores</a>
+                        </li>
+                        <li class="nav-item dropdown view active">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                BLOG
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Postagens" asp-action="Index">Postagens</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Comentarios" asp-action="Index">Comentários</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<section class="page-title-section overlay" data-background="/images/backgrounds/page-title.jpg">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8" style="z-index: 99; line-height:0;">
+                <span class="bem-vindo">@ViewData["Title"]</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div class="container form-padd">
+
+    @if (TempData["Mensagem"] != null)
+    {
+        <div class="alert alert-info">
+            <p>@Html.Raw(HttpUtility.HtmlDecode(TempData["Mensagem"]!.ToString()))</p>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group field-padd">
+                    <label asp-for="Nome" class="control-label"></label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                @if(_userRole != "Admin")
+                {
+                    <div class="form-group field-padd">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                }
+                @if(_userRole == "Admin")
+                {
+                    <div class="form-group field-padd">
+                        <label asp-for="IdUsuario" class="control-label"></label>
+                        <select asp-for="IdUsuario" class="form-control" asp-items="@(new SelectList(ViewBag.Stores, "Id", "UserName"))"></select>
+                        <span asp-validation-for="IdUsuario" class="text-danger"></span>
+                    </div>
+                }
+                <div class="form-group">
+                    <input type="image" src="..." value="Salvar" class="btn btn-primary" style="display: none;">
+                    <button class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+                    <a asp-action="Index" class="btn btn-primary"><i class="fa-solid fa-backward"></i> Autores</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
